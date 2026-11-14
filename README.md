@@ -57,34 +57,8 @@ results/                evaluation output
 docs/DEMO_SCRIPT.md     5-minute speaking script + likely questions
 ```
 
-## Quick start
 
-```bash
-python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-Without `models/model.onnx` the app still works and shows damaged vs classic. The AI panel appears as soon as the
-model file is present.
-
-## Train the model (free)
-
-**Easiest: Colab.** Open `notebooks/train_colab.ipynb` in [Google Colab](https://colab.research.google.com),
-choose a **T4 GPU** runtime and run the cells in order. At the end it downloads `trained_outputs.zip`
-containing `models/` and `results/`. Copy them into this repo.
-
-Kaggle works the same way (turn on GPU and Internet in the notebook settings).
-
-On any machine with PyTorch, this is the exact recipe of the final model:
-
-```bash
-pip install -r requirements-train.txt
-python train.py --dataset cifar10 --max-images 20000 --repeat 2 --epochs 40 --lr 5e-4 --out models
-python evaluate.py                                           # uses models/model.onnx
-```
-
-About 18 minutes on a Colab T4 GPU. Notes from the experiments:
+## Notes from the experiments:
 
 - STL-10 (`--dataset stl10`) is a 2.6 GB download and was too slow on free Colab, so CIFAR-10 was used.
 - A first CIFAR-10 run with the default learning rate (2e-3) stalled: it learned to fill lost blocks but not to
@@ -110,30 +84,7 @@ of the lost blocks, the AI is blind) and ties on JPEG. Against doing nothing, th
 except JPEG. Caveats: 28 photos is a small test set of unknown origin and mixed quality, and the choice between two
 candidate models (v2 vs v3) was made on the same photos.
 
-## Deploy for free (MLOps flow: train → commit model → auto-deploy)
-
-1. Create a GitHub repo and push this folder, including `models/model.onnx` (a few MB).
-2. Go to [share.streamlit.io](https://share.streamlit.io), sign in with GitHub, click **Create app**, pick the repo,
-   branch `main` and main file `app.py`.
-3. Wait for the build. You get a public link.
-4. To update: retrain, replace `models/model.onnx`, `git push`. The app redeploys by itself.
-
-The app uses `onnxruntime` on CPU, so it stays light enough for the free tier. The free tier puts the app to sleep
-when idle: **open the link 30 minutes before presenting**, and keep `streamlit run app.py` working on your laptop as a
-backup.
-
-Every push also runs the tests on GitHub Actions (`.github/workflows/tests.yml`), which is your CI step.
-
-## Tests
-
-```bash
-pip install pytest
-pytest -q tests
-```
-
-Tests that need PyTorch or Streamlit skip themselves when those are not installed.
-
-## Known limitations (say these yourself before anyone asks)
+## Known limitations
 
 - The CNN only knows the damage types it was trained on.
 - Trained on small natural photos (STL-10); other image styles may do worse.
