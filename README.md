@@ -23,7 +23,7 @@ image ──> [ channel: noise / lost packets / JPEG ] ──> damaged ──┬
 | JPEG artifacts | lossy source coding | quality 75 → 10 |
 | Combined | JPEG → AWGN → packet loss, in that order | one severity slider |
 
-## Fair comparison (important for your viva)
+## Fair comparison
 
 - The **classic baseline is told what kind of damage happened** and, for packet loss, even receives the exact map of
   lost blocks. It also uses a tuned filter per damage type.
@@ -57,7 +57,7 @@ results/                evaluation output
 docs/DEMO_SCRIPT.md     5-minute speaking script + likely questions
 ```
 
-## Quick start (your laptop)
+## Quick start
 
 ```bash
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
