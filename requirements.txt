@@ -1,0 +1,8 @@
+# Runtime dependencies for the Streamlit app (CPU only, no PyTorch needed)
+streamlit>=1.40
+numpy>=1.26
+opencv-python-headless>=4.9
+scikit-image>=0.22
+onnxruntime>=1.17
+pillow>=10.0
+matplotlib>=3.8

@@ -1,0 +1,7 @@
+# Extra dependencies for training / ONNX export (Colab and Kaggle already have torch)
+-r requirements.txt
+torch>=2.2
+torchvision>=0.17
+onnx>=1.15
+onnxscript>=0.1
+pytest>=8.0

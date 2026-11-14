@@ -1,0 +1,9 @@
+{
+  "best_val_psnr_restored": 30.540435607910155,
+  "val_psnr_damaged": 21.68337823486328,
+  "parameters": 210963,
+  "epochs": 40,
+  "dataset": "cifar10",
+  "onnx": true,
+  "onnx_max_abs_diff": 1.8596649169921875e-05
+}
